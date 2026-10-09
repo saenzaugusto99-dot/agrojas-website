@@ -4,15 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AGROJAS | Producción Avícola & Agroindustrial</title>
+  <meta name="description" content="AGROJAS: producción agroindustrial integrada en Tucumán. Granos, alimento balanceado y huevos de la más alta calidad. Hogar de la marca Pico Dorado.">
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="img/favicon.png">
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Inter -->
+  <!-- Tipografías -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Iconos -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -21,114 +22,185 @@
     :root {
       --brand: #166534;     /* verde principal */
       --brand-2: #65a30d;   /* verde secundario */
+      --brand-dark: #0b2e1a;
+      --gold: #d4a017;      /* dorado Pico Dorado */
+      --gold-light: #f5d56b;
+      --pico-red: #a73535;     /* rojo Pico Dorado */
+      --pico-yellow: #ffed00;  /* amarillo Pico Dorado */
+      --pico-ink: #2d2d2b;     /* gris oscuro Pico Dorado */
       --ink: #0b1416;
     }
+    html { scroll-behavior: smooth; scroll-padding-top: 76px; }
     html, body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color: var(--ink); }
     .brand-gradient { background: linear-gradient(90deg, var(--brand) 0%, var(--brand-2) 100%); }
+    .gold-gradient { background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%); }
+    .gold-text { background: linear-gradient(135deg, var(--gold-light), var(--gold)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+    /* Etiqueta sobre títulos */
+    .eyebrow { display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--brand-2); }
+    .eyebrow::after { content: ""; display: block; width: 36px; height: 3px; margin-top: 8px; border-radius: 2px; background: var(--gold); }
+    .text-center .eyebrow::after { margin-left: auto; margin-right: auto; }
+
+    /* Tarjetas */
+    .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 1.25rem; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -18px rgba(22,101,52,.35); border-color: rgba(101,163,13,.5); }
+    .icon-badge { display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 14px; background: linear-gradient(135deg, rgba(22,101,52,.10), rgba(101,163,13,.18)); color: var(--brand); font-size: 1.35rem; }
+
+    /* Navegación */
+    .nav-link { position: relative; padding: 4px 0; }
+    .nav-link::after { content: ""; position: absolute; left: 0; bottom: -2px; height: 2px; width: 0; background: var(--gold); transition: width .25s ease; }
+    .nav-link:hover::after { width: 100%; }
+
+    /* Hero */
+    .hero-overlay { background: linear-gradient(180deg, rgba(11,46,26,.55) 0%, rgba(0,0,0,.35) 45%, rgba(11,46,26,.75) 100%); }
+    .carousel-slide img { transform: scale(1.04); transition: transform 7s ease-out; }
+    .carousel-slide.is-active img { transform: scale(1.12); }
+    .carousel-slide.pico-slide img { transform: none; transition: none; }
+    #heroText { transition: opacity .6s ease; }
+    #heroText.is-hidden { opacity: 0; pointer-events: none; }
+
+    /* Panel Pico Dorado */
+    .font-pico { font-family: 'Montserrat', system-ui, sans-serif; }
+    .pico-panel { background: var(--pico-red); }
+    .pico-yellow { color: var(--pico-yellow); }
+    .pico-logo-card { display: block; transition: transform .35s ease; }
+    .pico-logo-card:hover { transform: scale(1.03); }
+    .ig-btn { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+
+    /* Aparición al hacer scroll */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .carousel-slide img, .carousel-slide.is-active img { transform: none; transition: none; }
+      html { scroll-behavior: auto; }
+    }
   </style>
 </head>
-<body class="bg-white">
+<body class="bg-white antialiased">
 
   <!-- NAV + HEADER FIJO -->
-  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
-    <nav class="max-w-6xl mx-auto flex items-center justify-between p-4">
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200">
+    <nav class="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
       <a href="#inicio" class="flex items-center gap-3">
-        <img src="img/logo.png" alt="Logo AGROJÁS" class="h-10 w-auto">
+        <img src="img/logo.png" alt="Logo AGROJAS" class="h-10 w-auto">
         <span class="font-extrabold tracking-tight text-xl">AGROJAS</span>
       </a>
-      <ul class="hidden sm:flex items-center gap-6 text-sm font-medium">
-        <li><a href="#mision" class="hover:text-[var(--brand)]">Misión</a></li>
-        <li><a href="#vision" class="hover:text-[var(--brand)]">Visión</a></li>
-        <li><a href="#valores" class="hover:text-[var(--brand)]">Valores</a></li>
-        <li><a href="#modelo" class="hover:text-[var(--brand)]">Modelo</a></li>
-        <li><a href="#contacto" class="hover:text-[var(--brand)]">Contacto</a></li>
+      <ul class="hidden md:flex items-center gap-7 text-sm font-medium">
+        <li><a href="#mision" class="nav-link hover:text-[var(--brand)]">Misión</a></li>
+        <li><a href="#vision" class="nav-link hover:text-[var(--brand)]">Visión</a></li>
+        <li><a href="#valores" class="nav-link hover:text-[var(--brand)]">Valores</a></li>
+        <li><a href="#modelo" class="nav-link hover:text-[var(--brand)]">Modelo</a></li>
+        <li><a href="#pico-dorado" class="nav-link font-bold text-[var(--pico-red)] hover:text-[var(--pico-red)]">Pico Dorado</a></li>
+        <li><a href="#contacto" class="nav-link hover:text-[var(--brand)]">Contacto</a></li>
       </ul>
-      <a href="#contacto" class="hidden sm:inline-block rounded-xl px-4 py-2 text-white font-semibold brand-gradient shadow hover:opacity-95">
+      <a href="#contacto" class="hidden md:inline-block rounded-xl px-5 py-2.5 text-white text-sm font-semibold brand-gradient shadow hover:shadow-lg hover:-translate-y-0.5 transition">
         Contactanos
       </a>
-      <button id="menuBtn" class="sm:hidden p-2 rounded-md border" aria-label="Abrir menú">
+      <button id="menuBtn" class="md:hidden p-2 rounded-md border" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
         <i class="fa-solid fa-bars"></i>
       </button>
     </nav>
-    <div id="mobileMenu" class="sm:hidden hidden border-t bg-white">
-      <ul class="p-3 space-y-2 text-sm">
-        <li><a class="block py-2" href="#mision">Misión</a></li>
-        <li><a class="block py-2" href="#vision">Visión</a></li>
-        <li><a class="block py-2" href="#valores">Valores</a></li>
-        <li><a class="block py-2" href="#modelo">Modelo</a></li>
-        <li><a class="block py-2" href="#contacto">Contacto</a></li>
+    <div id="mobileMenu" class="md:hidden hidden border-t bg-white">
+      <ul class="p-3 space-y-1 text-sm font-medium">
+        <li><a class="block py-2 px-2 rounded hover:bg-gray-50" href="#mision">Misión</a></li>
+        <li><a class="block py-2 px-2 rounded hover:bg-gray-50" href="#vision">Visión</a></li>
+        <li><a class="block py-2 px-2 rounded hover:bg-gray-50" href="#valores">Valores</a></li>
+        <li><a class="block py-2 px-2 rounded hover:bg-gray-50" href="#modelo">Modelo</a></li>
+        <li><a class="block py-2 px-2 rounded hover:bg-gray-50 text-[var(--pico-red)] font-bold" href="#pico-dorado">Pico Dorado</a></li>
+        <li><a class="block py-2 px-2 rounded hover:bg-gray-50" href="#contacto">Contacto</a></li>
       </ul>
     </div>
   </header>
 
-    <!-- HERO con carrusel -->
+  <!-- HERO con carrusel -->
   <section id="inicio" class="relative overflow-hidden">
-    <div id="heroCarousel" class="relative h-[70vh] md:h-[80vh]">
-      <!-- Slide 1 -->
-      <div class="absolute inset-0 transition-opacity duration-700 ease-in-out carousel-slide opacity-100">
-        <img src="img/hero1.jpg" alt="Imagen 1" class="w-full h-full object-cover">
-        <div class="absolute inset-0 bg-black/40"></div>
+    <div id="heroCarousel" class="relative h-[78vh] md:h-[86vh]">
+      <!-- Slide Pico Dorado -->
+      <div class="absolute inset-0 z-[5] transition-opacity duration-1000 ease-in-out carousel-slide pico-slide is-active opacity-100 bg-[var(--pico-red)]" aria-label="Pico Dorado, huevos frescos">
+        <div class="h-full max-w-6xl mx-auto px-6 pb-14 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-14 font-pico text-white text-center md:text-left">
+          <img src="img/picodorado-logo.jpg" alt="Pico Dorado - Huevos frescos" class="w-64 sm:w-80 md:w-[34rem] h-auto shrink-0">
+          <div class="max-w-md">
+            <p class="text-xs md:text-sm font-bold tracking-[.2em] uppercase pico-yellow">Nuestra marca</p>
+            <p class="mt-3 text-2xl md:text-4xl font-extrabold leading-tight">Del campo a tu mesa, con la frescura de siempre.</p>
+            <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
+              <a href="#pico-dorado" class="rounded-xl px-6 py-3 font-bold text-[var(--pico-ink)] bg-[var(--pico-yellow)] hover:-translate-y-0.5 hover:shadow-xl transition">Conocé la marca</a>
+              <a href="https://www.instagram.com/avicolapicodorado_/" target="_blank" rel="noopener noreferrer" class="rounded-xl px-6 py-3 font-bold text-[var(--pico-red)] bg-white hover:-translate-y-0.5 hover:shadow-xl transition"><i class="fa-brands fa-instagram mr-2"></i>Instagram</a>
+            </div>
+          </div>
+        </div>
       </div>
-      <!-- Slide 2 -->
-      <div class="absolute inset-0 transition-opacity duration-700 ease-in-out carousel-slide opacity-0">
-        <img src="img/hero2.jpg" alt="Imagen 2" class="w-full h-full object-cover">
-        <div class="absolute inset-0 bg-black/40"></div>
+      <div class="absolute inset-0 transition-opacity duration-1000 ease-in-out carousel-slide opacity-0">
+        <img src="img/hero1.jpg" alt="Campo de maíz de AGROJAS" class="w-full h-full object-cover">
       </div>
-      <!-- Slide 3 -->
-      <div class="absolute inset-0 transition-opacity duration-700 ease-in-out carousel-slide opacity-0">
-        <img src="img/hero3.jpg" alt="Imagen 3" class="w-full h-full object-cover">
-        <div class="absolute inset-0 bg-black/40"></div>
+      <div class="absolute inset-0 transition-opacity duration-1000 ease-in-out carousel-slide opacity-0">
+        <img src="img/hero2.jpg" alt="Producción avícola" class="w-full h-full object-cover">
       </div>
+      <div class="absolute inset-0 transition-opacity duration-1000 ease-in-out carousel-slide opacity-0">
+        <img src="img/hero3.jpg" alt="Producción agroindustrial" class="w-full h-full object-cover">
+      </div>
+      <div class="absolute inset-0 hero-overlay"></div>
     </div>
 
     <!-- Texto encima -->
-    <div class="absolute inset-0 flex flex-col items-center justify-center z-10 px-4 text-center text-white">
-      <h1 class="text-4xl md:text-6xl font-extrabold leading-tight drop-shadow-lg">
-        Cultivando el futuro de la alimentación
+    <div id="heroText" class="is-hidden absolute inset-0 flex flex-col items-center justify-center z-10 px-4 text-center text-white">
+      <span class="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 backdrop-blur px-4 py-1.5 text-xs font-semibold tracking-[.2em] uppercase">
+        <i class="fa-solid fa-leaf text-[var(--gold-light)]"></i> Producción agroindustrial · Tucumán
+      </span>
+      <h1 class="mt-6 text-4xl md:text-6xl font-extrabold leading-tight drop-shadow-lg max-w-4xl">
+        Cultivando el futuro de la <span class="gold-text">alimentación</span>
       </h1>
-      <p class="mt-4 max-w-2xl text-lg md:text-xl text-white/90 drop-shadow">
+      <p class="mt-5 max-w-2xl text-lg md:text-xl text-white/90 drop-shadow">
         Producción agroindustrial con innovación, transparencia y compromiso con la comunidad.
       </p>
-      <div class="mt-8">
-        <a href="#contacto" class="rounded-xl px-6 py-3 bg-[var(--brand)] text-white font-semibold shadow-lg hover:opacity-95">
+      <div class="mt-9 flex flex-col sm:flex-row gap-3">
+        <a href="#contacto" class="rounded-xl px-7 py-3.5 bg-[var(--brand-2)] text-white font-semibold shadow-lg hover:-translate-y-0.5 hover:shadow-xl transition">
           Contáctanos
+        </a>
+        <a href="#pico-dorado" class="rounded-xl px-7 py-3.5 border border-[var(--gold-light)]/70 text-[var(--gold-light)] font-semibold backdrop-blur hover:bg-[var(--gold)]/20 transition">
+          <i class="fa-solid fa-egg mr-2"></i>Conocé Pico Dorado
         </a>
       </div>
     </div>
 
     <!-- Indicadores -->
-    <div class="absolute inset-x-0 bottom-4 z-20 flex items-center justify-center gap-2">
-      <button class="carousel-dot w-2.5 h-2.5 rounded-full bg-white/50 ring-1 ring-white/70" aria-label="Ir al slide 1"></button>
-      <button class="carousel-dot w-2.5 h-2.5 rounded-full bg-white/50 ring-1 ring-white/70" aria-label="Ir al slide 2"></button>
-      <button class="carousel-dot w-2.5 h-2.5 rounded-full bg-white/50 ring-1 ring-white/70" aria-label="Ir al slide 3"></button>
+    <div class="absolute inset-x-0 bottom-5 z-20 flex items-center justify-center gap-2">
+      <button class="carousel-dot w-2.5 h-2.5 rounded-full bg-white/50 ring-1 ring-white/70 transition-all" aria-label="Ir al slide 1"></button>
+      <button class="carousel-dot w-2.5 h-2.5 rounded-full bg-white/50 ring-1 ring-white/70 transition-all" aria-label="Ir al slide 2"></button>
+      <button class="carousel-dot w-2.5 h-2.5 rounded-full bg-white/50 ring-1 ring-white/70 transition-all" aria-label="Ir al slide 3"></button>
+      <button class="carousel-dot w-2.5 h-2.5 rounded-full bg-white/50 ring-1 ring-white/70 transition-all" aria-label="Ir al slide 4"></button>
     </div>
   </section>
 
-
-
   <!-- QUIÉNES SOMOS / RESUMEN -->
-  <section id="resumen" class="bg-gray-50 border-y">
+  <section id="resumen" class="bg-gradient-to-b from-gray-50 to-white">
     <div class="max-w-6xl mx-auto px-4 py-20 text-center">
-      <h2 class="text-3xl font-extrabold">¿A qué nos dedicamos?</h2>
-      <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-700">
-        En AGROJAS nos dedicamos a la producción agroindustrial integrada: cultivamos nuestros propios granos,
-        elaboramos alimentos balanceados para aves y producimos huevos de la más alta calidad,
-        garantizando trazabilidad y frescura desde el campo hasta tu mesa.
-      </p>
+      <div class="reveal">
+        <span class="eyebrow">Quiénes somos</span>
+        <h2 class="mt-3 text-3xl md:text-4xl font-extrabold">¿A qué nos dedicamos?</h2>
+        <p class="mt-5 max-w-3xl mx-auto text-lg text-gray-700 leading-relaxed">
+          En AGROJAS nos dedicamos a la producción agroindustrial integrada: cultivamos nuestros propios granos,
+          elaboramos alimentos balanceados para aves y producimos huevos de la más alta calidad,
+          garantizando trazabilidad y frescura desde el campo hasta tu mesa.
+        </p>
+      </div>
 
       <!-- Imágenes representativas -->
-      <div class="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-8">
-        <div class="flex flex-col items-center">
-          <img src="img/huevos.jpg" alt="Huevos frescos" class="h-24 w-auto rounded-lg shadow">
-          <h3 class="mt-3 font-semibold">Producción de Huevos</h3>
+      <div class="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div class="reveal group relative overflow-hidden rounded-2xl shadow-md aspect-[4/3]">
+          <img src="img/huevos.jpg" alt="Huevos frescos" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
+          <h3 class="absolute bottom-4 left-5 right-5 text-left text-white font-semibold text-lg">Producción de Huevos</h3>
         </div>
-        <div class="flex flex-col items-center">
-          <img src="img/granos.jpg" alt="Granos" class="h-24 w-auto rounded-lg shadow">
-          <h3 class="mt-3 font-semibold">Cultivo de Granos</h3>
+        <div class="reveal group relative overflow-hidden rounded-2xl shadow-md aspect-[4/3]">
+          <img src="img/granos.jpg" alt="Granos" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
+          <h3 class="absolute bottom-4 left-5 right-5 text-left text-white font-semibold text-lg">Cultivo de Granos</h3>
         </div>
-        <div class="flex flex-col items-center">
-          <img src="img/pienso.jpg" alt="Pienso para aves" class="h-24 w-auto rounded-lg shadow">
-          <h3 class="mt-3 font-semibold">Pienso para Aves</h3>
+        <div class="reveal group relative overflow-hidden rounded-2xl shadow-md aspect-[4/3]">
+          <img src="img/pienso.jpg" alt="Pienso para aves" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
+          <h3 class="absolute bottom-4 left-5 right-5 text-left text-white font-semibold text-lg">Pienso para Aves</h3>
         </div>
       </div>
     </div>
@@ -136,52 +208,55 @@
 
   <!-- MISION / VISION -->
   <section class="max-w-6xl mx-auto px-4 py-20 grid md:grid-cols-2 gap-8">
-    <article id="mision" class="p-6 rounded-2xl border">
-      <div class="flex items-center gap-3">
-        <i class="fa-solid fa-seedling text-[var(--brand)] text-2xl"></i>
+    <article id="mision" class="card reveal p-8">
+      <div class="flex items-center gap-4">
+        <span class="icon-badge"><i class="fa-solid fa-seedling"></i></span>
         <h2 class="text-2xl font-bold">Misión</h2>
       </div>
-      <p class="mt-3 text-gray-700">
+      <p class="mt-4 text-gray-700 leading-relaxed">
         Producir alimentos de calidad de manera sustentable, integrando la agricultura y la avicultura en un modelo de producción que agrega valor a nuestros granos, garantizando trazabilidad, frescura y confianza desde el campo hasta la mesa de nuestros clientes.
       </p>
     </article>
 
-    <article id="vision" class="p-6 rounded-2xl border">
-      <div class="flex items-center gap-3">
-        <i class="fa-solid fa-binoculars text-[var(--brand)] text-2xl"></i>
+    <article id="vision" class="card reveal p-8">
+      <div class="flex items-center gap-4">
+        <span class="icon-badge"><i class="fa-solid fa-binoculars"></i></span>
         <h2 class="text-2xl font-bold">Visión</h2>
       </div>
-      <p class="mt-3 text-gray-700">
+      <p class="mt-4 text-gray-700 leading-relaxed">
         Ser la empresa agroalimentaria que lidera y define el futuro del sector en el norte del país. Nos convertiremos en el modelo de referencia global para la producción integrada de granos y huevos, reconocidos por nuestra innovación, compromiso inquebrantable con la sustentabilidad y una relación de total cercanía con nuestros clientes.
       </p>
     </article>
   </section>
 
   <!-- VALORES -->
-  <section id="valores" class="bg-gray-50 border-y">
-    <div class="max-w-6xl mx-auto px-4 py-16">
-      <h2 class="text-3xl font-extrabold text-center">Valores</h2>
-      <p class="mt-2 text-center text-gray-600">Principios que guían cada decisión y proceso.</p>
-      <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="p-6 bg-white rounded-2xl border hover:shadow">
-          <i class="fa-solid fa-leaf text-[var(--brand)] text-2xl"></i>
-          <h3 class="mt-3 font-semibold">Sustentabilidad</h3>
-          <p class="mt-2 text-gray-600 text-sm">Uso responsable de recursos y enfoque circular.</p>
+  <section id="valores" class="bg-gray-50 border-y border-gray-200">
+    <div class="max-w-6xl mx-auto px-4 py-20 text-center">
+      <div class="reveal">
+        <span class="eyebrow">Lo que nos mueve</span>
+        <h2 class="mt-3 text-3xl md:text-4xl font-extrabold">Valores</h2>
+        <p class="mt-3 text-gray-600">Principios que guían cada decisión y proceso.</p>
+      </div>
+      <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
+        <div class="card reveal p-7">
+          <span class="icon-badge"><i class="fa-solid fa-leaf"></i></span>
+          <h3 class="mt-4 font-semibold text-lg">Sustentabilidad</h3>
+          <p class="mt-2 text-gray-600 text-sm leading-relaxed">Uso responsable de recursos y enfoque circular.</p>
         </div>
-        <div class="p-6 bg-white rounded-2xl border hover:shadow">
-          <i class="fa-solid fa-clipboard-check text-[var(--brand)] text-2xl"></i>
-          <h3 class="mt-3 font-semibold">Calidad & trazabilidad</h3>
-          <p class="mt-2 text-gray-600 text-sm">Control de punta a punta, desde el campo hasta la mesa.</p>
+        <div class="card reveal p-7">
+          <span class="icon-badge"><i class="fa-solid fa-clipboard-check"></i></span>
+          <h3 class="mt-4 font-semibold text-lg">Calidad & trazabilidad</h3>
+          <p class="mt-2 text-gray-600 text-sm leading-relaxed">Control de punta a punta, desde el campo hasta la mesa.</p>
         </div>
-        <div class="p-6 bg-white rounded-2xl border hover:shadow">
-          <i class="fa-solid fa-flask text-[var(--brand)] text-2xl"></i>
-          <h3 class="mt-3 font-semibold">Innovación</h3>
-          <p class="mt-2 text-gray-600 text-sm">Mejora continua e incorporación tecnológica.</p>
+        <div class="card reveal p-7">
+          <span class="icon-badge"><i class="fa-solid fa-flask"></i></span>
+          <h3 class="mt-4 font-semibold text-lg">Innovación</h3>
+          <p class="mt-2 text-gray-600 text-sm leading-relaxed">Mejora continua e incorporación tecnológica.</p>
         </div>
-        <div class="p-6 bg-white rounded-2xl border hover:shadow">
-          <i class="fa-solid fa-handshake-angle text-[var(--brand)] text-2xl"></i>
-          <h3 class="mt-3 font-semibold">Compromiso</h3>
-          <p class="mt-2 text-gray-600 text-sm">Con las personas, la comunidad y el ambiente.</p>
+        <div class="card reveal p-7">
+          <span class="icon-badge"><i class="fa-solid fa-handshake-angle"></i></span>
+          <h3 class="mt-4 font-semibold text-lg">Compromiso</h3>
+          <p class="mt-2 text-gray-600 text-sm leading-relaxed">Con las personas, la comunidad y el ambiente.</p>
         </div>
       </div>
     </div>
@@ -189,59 +264,142 @@
 
   <!-- MODELO DE PRODUCCIÓN LINEAL -->
   <section id="modelo" class="max-w-6xl mx-auto px-4 py-20">
-    <h2 class="text-3xl font-extrabold text-center">Nuestro Modelo de Producción Lineal</h2>
-    <p class="mt-3 text-center text-gray-700">Así es como nuestra producción fluye desde el campo hasta la mesa, garantizando calidad en cada etapa.</p>
-    <div class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-      <div class="p-6 rounded-2xl border">
-        <i class="fa-solid fa-wheat-awn text-[var(--brand)] text-2xl"></i>
-        <h3 class="mt-2 font-semibold">Agricultura</h3>
+    <div class="text-center reveal">
+      <span class="eyebrow">Del campo a la mesa</span>
+      <h2 class="mt-3 text-3xl md:text-4xl font-extrabold">Nuestro Modelo de Producción Lineal</h2>
+      <p class="mt-4 max-w-2xl mx-auto text-gray-700">Así es como nuestra producción fluye desde el campo hasta la mesa, garantizando calidad en cada etapa.</p>
+    </div>
+    <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <div class="card reveal p-7 relative">
+        <span class="absolute top-3 left-4 text-xs font-bold text-gray-300">01</span>
+        <span class="icon-badge"><i class="fa-solid fa-wheat-awn"></i></span>
+        <h3 class="mt-3 font-semibold">Agricultura</h3>
       </div>
-      <div class="p-6 rounded-2xl border">
-        <i class="fa-solid fa-crow text-[var(--brand)] text-2xl"></i>
-        <h3 class="mt-2 font-semibold">Avicultura</h3>
+      <div class="card reveal p-7 relative">
+        <span class="absolute top-3 left-4 text-xs font-bold text-gray-300">02</span>
+        <span class="icon-badge"><i class="fa-solid fa-crow"></i></span>
+        <h3 class="mt-3 font-semibold">Avicultura</h3>
       </div>
-      <div class="p-6 rounded-2xl border">
-        <i class="fa-solid fa-egg text-[var(--brand)] text-2xl"></i>
-        <h3 class="mt-2 font-semibold">Producción de Huevos</h3>
+      <div class="card reveal p-7 relative">
+        <span class="absolute top-3 left-4 text-xs font-bold text-gray-300">03</span>
+        <span class="icon-badge"><i class="fa-solid fa-egg"></i></span>
+        <h3 class="mt-3 font-semibold">Producción de Huevos</h3>
       </div>
-      <div class="p-6 rounded-2xl border">
-        <i class="fa-solid fa-utensils text-[var(--brand)] text-2xl"></i>
-        <h3 class="mt-2 font-semibold">Tu mesa</h3>
+      <div class="card reveal p-7 relative">
+        <span class="absolute top-3 left-4 text-xs font-bold text-gray-300">04</span>
+        <span class="icon-badge"><i class="fa-solid fa-utensils"></i></span>
+        <h3 class="mt-3 font-semibold">Tu mesa</h3>
       </div>
     </div>
   </section>
 
+  <!-- PANEL DE MARCA: PICO DORADO -->
+  <section id="pico-dorado" class="px-4 pb-20">
+    <div class="pico-panel reveal max-w-6xl mx-auto rounded-3xl overflow-hidden text-white shadow-2xl">
+      <div class="grid md:grid-cols-5 gap-10 items-center p-8 md:p-14">
+        <div class="md:col-span-2 order-1 md:order-2">
+          <a href="https://www.instagram.com/avicolapicodorado_/" target="_blank" rel="noopener noreferrer" aria-label="Pico Dorado, huevos frescos: ver Instagram" class="pico-logo-card block">
+            <img src="img/picodorado-logo.jpg" alt="Pico Dorado - Huevos frescos" class="w-full h-auto block" loading="lazy">
+          </a>
+        </div>
+
+        <div class="md:col-span-3 order-2 md:order-1 font-pico">
+          <span class="inline-flex items-center gap-2 text-xs font-bold tracking-[.2em] uppercase pico-yellow">
+            <i class="fa-solid fa-egg"></i> Nuestra marca
+          </span>
+          <h2 class="mt-4 text-5xl md:text-6xl font-extrabold leading-[.95] uppercase">
+            Pico<br><span class="pico-yellow">Dorado</span>
+          </h2>
+          <p class="mt-3 text-base md:text-lg font-medium tracking-wide text-white/80">Huevos frescos</p>
+          <p class="mt-5 text-base md:text-lg text-white/80 leading-relaxed max-w-xl font-medium">
+            Pico Dorado es la marca que lleva la calidad, la frescura y la trazabilidad de AGROJAS
+            directamente a tu mesa. Del campo a tu hogar, con el compromiso de siempre.
+          </p>
+          <ul class="mt-6 grid sm:grid-cols-3 gap-3 text-sm font-semibold">
+            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check pico-yellow"></i> Calidad controlada</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check pico-yellow"></i> Frescura garantizada</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check pico-yellow"></i> Trazabilidad total</li>
+          </ul>
+          <div class="mt-8 flex flex-col sm:flex-row gap-3">
+            <a href="https://www.instagram.com/avicolapicodorado_/" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center justify-center gap-3 rounded-xl px-6 py-3.5 font-bold text-[var(--pico-red)] bg-white shadow-lg hover:-translate-y-0.5 hover:shadow-xl transition">
+              <i class="fa-brands fa-instagram text-xl"></i> @avicolapicodorado_
+            </a>
+            <a href="#contacto" class="inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 font-bold text-[var(--pico-ink)] bg-[var(--pico-yellow)] hover:-translate-y-0.5 hover:shadow-xl transition">
+              Hacé tu pedido <i class="fa-solid fa-arrow-right text-sm"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- CONTACTO -->
-  <section id="contacto" class="max-w-6xl mx-auto px-4 py-16">
-    <div class="rounded-2xl border p-8 bg-white">
-      <div class="grid md:grid-cols-2 gap-8">
+  <section id="contacto" class="max-w-6xl mx-auto px-4 pb-20">
+    <div class="reveal rounded-3xl border border-gray-200 p-8 md:p-12 bg-white shadow-sm">
+      <div class="grid md:grid-cols-2 gap-10">
         <div>
-          <h2 class="text-3xl font-extrabold">Contacto</h2>
-          <p class="mt-3 text-gray-700">Contanos tu necesidad y te respondemos a la brevedad.</p>
-          <div class="mt-6 space-y-3 text-gray-700">
-            <p><i class="fa-solid fa-envelope text-[var(--brand)] mr-2"></i> <a class="underline" href="mailto:agrojas.sas@gmail.com">agrojas.sas@gmail.com</a></p>
-            <p><i class="fa-brands fa-whatsapp text-[var(--brand)] mr-2"></i> <a class="underline" href="https://wa.me/5493812538947" target="_blank" rel="noopener">+54 9 381 253 8947</a></p>
-            <p><i class="fa-solid fa-location-dot text-[var(--brand)] mr-2"></i> Tucumán, Argentina</p>
+          <span class="eyebrow">Hablemos</span>
+          <h2 class="mt-3 text-3xl md:text-4xl font-extrabold">Contacto</h2>
+          <p class="mt-4 text-gray-700">Contanos tu necesidad y te respondemos a la brevedad.</p>
+          <div class="mt-8 space-y-4 text-gray-700">
+            <p class="flex items-center gap-3"><span class="icon-badge !w-10 !h-10 !text-base"><i class="fa-solid fa-envelope"></i></span> <a class="hover:underline" href="mailto:agrojas.sas@gmail.com">agrojas.sas@gmail.com</a></p>
+            <p class="flex items-center gap-3"><span class="icon-badge !w-10 !h-10 !text-base"><i class="fa-brands fa-whatsapp"></i></span> <a class="hover:underline" href="https://wa.me/5493812538947" target="_blank" rel="noopener">+54 9 381 253 8947</a></p>
+            <p class="flex items-center gap-3"><span class="icon-badge !w-10 !h-10 !text-base"><i class="fa-brands fa-instagram"></i></span> <a class="hover:underline" href="https://www.instagram.com/avicolapicodorado_/" target="_blank" rel="noopener noreferrer">Pico Dorado en Instagram</a></p>
+            <p class="flex items-center gap-3"><span class="icon-badge !w-10 !h-10 !text-base"><i class="fa-solid fa-location-dot"></i></span> Tucumán, Argentina</p>
           </div>
         </div>
         <form class="space-y-4" onsubmit="window.location.href='mailto:agrojas.sas@gmail.com?subject=Consulta desde web&body=Nombre:%20'+encodeURIComponent(this.nombre.value)+'%0AEmail:%20'+encodeURIComponent(this.email.value)+'%0AMensaje:%0A'+encodeURIComponent(this.mensaje.value); return false;">
-          <input required name="nombre" type="text" placeholder="Nombre" class="w-full rounded-xl border px-4 py-3">
-          <input required name="email" type="email" placeholder="Email" class="w-full rounded-xl border px-4 py-3">
-          <textarea required name="mensaje" rows="4" placeholder="Mensaje" class="w-full rounded-xl border px-4 py-3"></textarea>
-          <button type="submit" class="rounded-xl px-6 py-3 text-white font-semibold brand-gradient shadow hover:opacity-95">Enviar</button>
+          <input required name="nombre" type="text" placeholder="Nombre" class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--brand-2)] focus:border-transparent">
+          <input required name="email" type="email" placeholder="Email" class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--brand-2)] focus:border-transparent">
+          <textarea required name="mensaje" rows="4" placeholder="Mensaje" class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--brand-2)] focus:border-transparent"></textarea>
+          <button type="submit" class="rounded-xl px-7 py-3 text-white font-semibold brand-gradient shadow hover:-translate-y-0.5 hover:shadow-lg transition">Enviar</button>
         </form>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="border-t">
-    <div class="max-w-6xl mx-auto px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-gray-600">
-      <p>© <span id="year"></span> AGROJAS. Todos los derechos reservados.</p>
-      <div class="flex items-center gap-4">
-        <a href="/privacidad.html" class="hover:text-[var(--brand)]">Política de privacidad</a>
-        <a href="mailto:agrojas.sas@gmail.com" class="hover:text-[var(--brand)]">agrojas.sas@gmail.com</a>
+  <footer class="bg-[var(--brand-dark)] text-white/80">
+    <div class="max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-8 items-start">
+      <div>
+        <div class="flex items-center gap-3">
+          <img src="img/logo.png" alt="Logo AGROJAS" class="h-10 w-auto bg-white rounded-lg p-1">
+          <span class="font-extrabold text-xl text-white tracking-tight">AGROJAS</span>
+        </div>
+        <p class="mt-4 text-sm leading-relaxed">Producción agroindustrial integrada, del campo a tu mesa.</p>
+      </div>
+      <div class="text-sm">
+        <p class="font-semibold text-white">Navegación</p>
+        <ul class="mt-3 space-y-2">
+          <li><a href="#mision" class="hover:text-[var(--gold-light)]">Misión y visión</a></li>
+          <li><a href="#modelo" class="hover:text-[var(--gold-light)]">Modelo de producción</a></li>
+          <li><a href="#pico-dorado" class="hover:text-[var(--gold-light)]">Pico Dorado</a></li>
+          <li><a href="#contacto" class="hover:text-[var(--gold-light)]">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="text-sm">
+        <p class="font-semibold text-white">Seguinos</p>
+        <div class="mt-3 flex items-center gap-3">
+          <a href="https://www.instagram.com/avicolapicodorado_/" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Pico Dorado"
+             class="w-10 h-10 rounded-full border border-white/25 flex items-center justify-center hover:bg-[var(--gold)] hover:border-[var(--gold)] hover:text-[var(--brand-dark)] transition">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="https://wa.me/5493812538947" target="_blank" rel="noopener" aria-label="WhatsApp"
+             class="w-10 h-10 rounded-full border border-white/25 flex items-center justify-center hover:bg-[var(--gold)] hover:border-[var(--gold)] hover:text-[var(--brand-dark)] transition">
+            <i class="fa-brands fa-whatsapp"></i>
+          </a>
+          <a href="mailto:agrojas.sas@gmail.com" aria-label="Email"
+             class="w-10 h-10 rounded-full border border-white/25 flex items-center justify-center hover:bg-[var(--gold)] hover:border-[var(--gold)] hover:text-[var(--brand-dark)] transition">
+            <i class="fa-solid fa-envelope"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-white/10">
+      <div class="max-w-6xl mx-auto px-4 py-5 flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-white/60">
+        <p>© <span id="year"></span> AGROJAS. Todos los derechos reservados.</p>
+        <a href="/privacidad.html" class="hover:text-[var(--gold-light)]">Política de privacidad</a>
       </div>
     </div>
   </footer>
@@ -254,7 +412,24 @@
     // Menú móvil
     const btn = document.getElementById('menuBtn');
     const mm = document.getElementById('mobileMenu');
-    btn?.addEventListener('click', ()=> mm.classList.toggle('hidden'));
+    btn?.addEventListener('click', () => {
+      const open = mm.classList.toggle('hidden') === false;
+      btn.setAttribute('aria-expanded', open);
+    });
+    mm?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mm.classList.add('hidden');
+      btn.setAttribute('aria-expanded', 'false');
+    }));
+
+    // Aparición al hacer scroll
+    (function() {
+      const items = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) { items.forEach(el => el.classList.add('in')); return; }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+      items.forEach(el => io.observe(el));
+    })();
 
     // ====== Carousel básico ======
     (function() {
@@ -263,11 +438,18 @@
       const slides = Array.from(container.querySelectorAll('.carousel-slide'));
       const dots = Array.from(document.querySelectorAll('.carousel-dot'));
       const total = slides.length;
-      let i = 0, timer = null, INTERVAL = 5000;
+      let i = 0, timer = null, INTERVAL = 5500;
       function show(index) {
         i = (index + total) % total;
-        slides.forEach((s, idx) => s.style.opacity = idx === i ? '1' : '0');
-        dots.forEach((d, idx) => d.style.backgroundColor = idx === i ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.5)');
+        slides.forEach((s, idx) => {
+          s.style.opacity = idx === i ? '1' : '0';
+          s.classList.toggle('is-active', idx === i);
+        });
+        document.getElementById('heroText')?.classList.toggle('is-hidden', slides[i].classList.contains('pico-slide'));
+        dots.forEach((d, idx) => {
+          d.style.backgroundColor = idx === i ? 'rgba(245,213,107,1)' : 'rgba(255,255,255,0.5)';
+          d.style.width = idx === i ? '22px' : '10px';
+        });
       }
       function start() { stop(); timer = setInterval(() => show(i+1), INTERVAL); }
       function stop() { if (timer) clearInterval(timer); timer=null; }
